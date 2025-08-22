@@ -100,7 +100,7 @@ for (phenotype in unique_phenotypes) {
       }
       library(locuscomparer)
 
-      print(unique(merged$CHR))
+      print(unique(merged_data$CHR))
       
       #prepare data for locuscomparer
       pqtl_data <- merged_data %>% 
