@@ -115,6 +115,7 @@ for (phenotype in unique_phenotypes) {
       
       #get lead SNP (most probable colocalization SNP)
       lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
+      print(lead_snp)
 
       #create the three-panel plot
       plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
@@ -125,7 +126,6 @@ for (phenotype in unique_phenotypes) {
                    in_fn2 = "/tmp/pqtl.tsv",
                    title1 = paste0("AoU Ischemic Heart Disease GWAS"),
                    title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
-                   snp = lead_snp,
                    population = "META",
                    legend = TRUE,
                    combine =TRUE,
