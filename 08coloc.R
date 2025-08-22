@@ -90,7 +90,8 @@ for (phenotype in unique_phenotypes) {
     if (result$summary["PP.H4.abf"] > 0.8) {
       cat("Colocalizing SNPs found:\n")
       top_snps <- result$results[order(-result$results$SNP.PP.H4), ]
-      print(head(top_snps[, c("snp", "SNP.PP.H4")], 5))
+      print(colnames(top_snps))
+      print(head(top_snps[, c("snp", "SNP.PP.H4")], 20))
     }
     
     cat("\n")
