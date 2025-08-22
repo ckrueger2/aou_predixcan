@@ -136,8 +136,10 @@ for (phenotype in unique_phenotypes) {
             
       #clean up tmp files
       file.remove("/tmp/pqtl.tsv", "/tmp/gwas.tsv")
-      
       cat("Locuscompare plot saved as:", plot_filename, "\n")
+    }
+    
+    cat("\n")
   } else {
     cat("No common variants found for", phenotype, "\n\n")
   }
