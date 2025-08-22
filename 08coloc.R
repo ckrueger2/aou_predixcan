@@ -132,7 +132,7 @@ for (phenotype in unique_phenotypes) {
                    in_fn2 = "/tmp/pqtl.tsv",
                    title1 = paste0("AoU Ischemic Heart Disease GWAS"),
                    title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
-                   snp = lead_snp
+                   snp = lead_snp,
                    population = "META",
                    legend = TRUE,
                    combine =TRUE,
