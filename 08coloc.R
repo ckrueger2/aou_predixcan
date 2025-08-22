@@ -120,9 +120,7 @@ for (phenotype in unique_phenotypes) {
       
       #retrieve LD information
       ld_data <- retrieve_LD(chr = merged_data$CHR[1], 
-                             start = min(merged_data$POS), 
-                             end = max(merged_data$POS),
-                             lead_snp = lead_snp,
+                             snp = lead_snp,
                              population = "META")
       
       #create the three-panel plot
