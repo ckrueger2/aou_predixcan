@@ -99,25 +99,19 @@ for (phenotype in unique_phenotypes) {
         devtools::install_github("boxiangliu/locuscomparer")
       }
       library(locuscomparer)
-
-      print(unique(merged_data$CHR))
       
       #prepare data for locuscomparer
       pqtl_data <- merged_data %>% 
         select(rsid = ID, chr = CHR, pos = POS, pval = pval_nominal) %>%
         mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
-      write.table(pqtl_data, "/tmp/pqtl.tsv", sep="\t", row.names=FALSE, quote=FALSE)
+      head(pqtl_data)
+      str(pqtl_data)
       
       gwas_data_formatted <- merged_data %>% 
         select(rsid = ID, chr = CHR, pos = POS, pval = Pvalue) %>%
         mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
-      write.table(gwas_data_formatted, "/tmp/gwas.tsv", sep="\t", row.names=FALSE, quote=FALSE)
-
-      #check chromosome values in the files
-      gwas_check <- read.table("/tmp/gwas.tsv", header=TRUE)
-      pqtl_check <- read.table("/tmp/pqtl.tsv", header=TRUE)
-      cat("Unique chromosomes in GWAS file:", unique(gwas_check$chr), "\n")
-      cat("Unique chromosomes in pQTL file:", unique(pqtl_check$chr), "\n")
+      head(gwas_data_formatted)
+      str(gwas_data_formatted)
       
       #get lead SNP (most probable colocalization SNP)
       lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
