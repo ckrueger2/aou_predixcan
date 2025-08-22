@@ -114,7 +114,7 @@ for (phenotype in unique_phenotypes) {
       write.table(gwas_data_formatted, "/tmp/gwas.tsv", sep="\t", row.names=FALSE, quote=FALSE)
       
       #get lead SNP (most probable colocalization SNP)
-      lead_snp <- top_snps$SNP.PP.H4[which.max(top_snps$SNP.PP.H4)]
+      lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
 
       #create the three-panel plot
       plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
