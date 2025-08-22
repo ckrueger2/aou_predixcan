@@ -99,6 +99,8 @@ for (phenotype in unique_phenotypes) {
         devtools::install_github("boxiangliu/locuscomparer")
       }
       library(locuscomparer)
+
+      head(merged_data)
       
       #prepare data for locuscomparer
       pqtl_data <- merged_data %>%
