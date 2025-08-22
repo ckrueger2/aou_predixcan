@@ -96,6 +96,12 @@ for (phenotype in unique_phenotypes) {
     cat("Results for", phenotype, ":\n")
     print(result$summary)
     cat("\n")
+
+    if (result$summary["PP.H4.abf"] > 0.8) {
+      cat("Colocalizing SNPs found:\n")
+      top_snps <- result$results[order(-result$results$SNP.PP.H4), ]
+      print(head(top_snps[, c("snp", "SNP.PP.H4")], 5))
+    }
   } else {
     cat("No common variants found for", phenotype, "\n\n")
   }
