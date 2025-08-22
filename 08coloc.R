@@ -104,13 +104,13 @@ for (phenotype in unique_phenotypes) {
       
       #prepare data for locuscomparer
       pqtl_data <- merged_data %>% 
-      select(rsid = ID, chr = CHR, pos = POS, pval = pval_nominal) %>%
-      mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
+        select(rsid = ID, chr = CHR, pos = POS, pval = pval_nominal) %>%
+        mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
       write.table(pqtl_data, "/tmp/pqtl.tsv", sep="\t", row.names=FALSE, quote=FALSE)
-
+      
       gwas_data_formatted <- merged_data %>% 
-      select(rsid = ID, chr = CHR, pos = POS, pval = Pvalue) %>%
-      mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
+        select(rsid = ID, chr = CHR, pos = POS, pval = Pvalue) %>%
+        mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
       write.table(gwas_data_formatted, "/tmp/gwas.tsv", sep="\t", row.names=FALSE, quote=FALSE)
       
       #get lead SNP (most probable colocalization SNP)
