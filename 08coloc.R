@@ -123,32 +123,23 @@ for (phenotype in unique_phenotypes) {
       png(plot_filename, width = 1200, height = 400)
       
       #create plot
-      loc <- locuscompare(in_fn1 = "/tmp/gwas.tsv", 
-                          in_fn2 = "/tmp/pqtl.tsv",
-                          title1 = paste0("AoU Ischemic Heart Disease GWAS"),
-                          title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
-                          snp = lead_snp,
-                          population = "META",
-                          legend = TRUE,
-                          combine =TRUE,
-                          legend_position = "bottomright",
-                          genome = "hg38"
-                         )
-
-      
-locuscompare = function(in_fn1, in_fn2, marker_col1 = "rsid", pval_col1 = "pval",
-                 title1 = "eQTL",marker_col2 = "rsid", pval_col2 = "pval", title2 = "GWAS",
-                 snp = NULL, population = "EUR", combine = TRUE, legend = TRUE,
-                 legend_position = c('bottomright','topright','topleft'),
-                 lz_ylab_linebreak = FALSE, genome = c('hg19','hg38')) {
-
+      locuscompare(in_fn1 = "/tmp/gwas.tsv", 
+                   in_fn2 = "/tmp/pqtl.tsv",
+                   title1 = paste0("AoU Ischemic Heart Disease GWAS"),
+                   title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
+                   snp = lead_snp,
+                   population = "META",
+                   legend = TRUE,
+                   combine =TRUE,
+                   legend_position = "bottomright",
+                   genome = "hg38"
+                  )
+      dev.off()
   
       #add LD
       #make a one-time request for your personal access token from a web browser at https://ldlink.nih.gov/?tab=apiaccess.
-      loc_ld <- link_LD(loc, token = "f6f66d8afc43")
-
-      dev.off()
-            
+      #loc_ld <- link_LD(loc, token = "f6f66d8afc43")
+      
       #clean up tmp files
       file.remove("/tmp/pqtl.tsv", "/tmp/gwas.tsv")
       cat("Locuscompare plot saved as:", plot_filename, "\n")
