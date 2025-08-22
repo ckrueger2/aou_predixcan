@@ -112,6 +112,12 @@ for (phenotype in unique_phenotypes) {
         select(rsid = ID, chr = CHR, pos = POS, pval = Pvalue) %>%
         mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
       write.table(gwas_data_formatted, "/tmp/gwas.tsv", sep="\t", row.names=FALSE, quote=FALSE)
+
+      #check chromosome values in the files
+      gwas_check <- read.table("/tmp/gwas.tsv", header=TRUE)
+      pqtl_check <- read.table("/tmp/pqtl.tsv", header=TRUE)
+      cat("Unique chromosomes in GWAS file:", unique(gwas_check$chr), "\n")
+      cat("Unique chromosomes in pQTL file:", unique(pqtl_check$chr), "\n")
       
       #get lead SNP (most probable colocalization SNP)
       lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
