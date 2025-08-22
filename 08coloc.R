@@ -116,29 +116,28 @@ for (phenotype in unique_phenotypes) {
         write.table("/tmp/gwas.tsv", sep="\t", row.names=FALSE, quote=FALSE)
       
       #get lead SNP (most probable colocalization SNP)
-      lead_snp <- top_snps$SNP.PP.H4[which.min(top_snps$SNP.PP.H4)]
-      
-      #retrieve LD information
-      ld_data <- retrieve_LD(chr = merged_data$CHR[1], 
-                             snp = lead_snp,
-                             population = "META")
-      
+      lead_snp <- top_snps$SNP.PP.H4[which.max(top_snps$SNP.PP.H4)]
+
       #create the three-panel plot
       plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
       png(plot_filename, width = 1200, height = 400)
-      locuscompare(in_fn1 = "/tmp/gwas.tsv", 
-                   in_fn2 = "/tmp/pqtl.tsv",
-                   title1 = paste("Ischemic Heart Disease GWAS:", args$phecode),
-                   title2 = paste("MESA pQTLs:", phenotype),
-                   ld = ld_data,
-                   color_scheme = c("blue", "green", "orange", "red"))
-      dev.off()
       
+      #create plot
+      loc <- locuscompare(in_fn1 = "/tmp/gwas.tsv", 
+                          in_fn2 = "/tmp/pqtl.tsv",
+                          title1 = paste("Ischemic Heart Disease GWAS:", args$phecode),
+                          title2 = paste("MESA pQTLs:", phenotype))
+
+      #add LD
+      #make a one-time request for your personal access token from a web browser at https://ldlink.nih.gov/?tab=apiaccess.
+      loc_ld <- link_LD(loc, token = "f6f66d8afc43")
+
+      dev.off()
+            
       #clean up tmp files
       file.remove("/tmp/pqtl.tsv", "/tmp/gwas.tsv")
       
       cat("Locuscompare plot saved as:", plot_filename, "\n")
-    }
   } else {
     cat("No common variants found for", phenotype, "\n\n")
   }
