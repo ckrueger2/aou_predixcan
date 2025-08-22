@@ -59,8 +59,6 @@ for (phenotype in unique_phenotypes) {
     }
     post_filter <-(nrow(merged_data))
     cat("Pre-filter SNP count: ", pre_filter, " Post-filter SNP count: ", post_filter, "\n")
-
-    print(colnames(merged_data))
     
     #prepare datasets
     dataset1 <- list(
@@ -103,19 +101,11 @@ for (phenotype in unique_phenotypes) {
       library(locuscomparer)
       
       #prepare data for locuscomparer
-      pqtl_data <- merged_data %>%
-        select(rsid = ID, 
-               chr = as.integer("CHR"),
-               pos = as.integer("POS"), 
-               pval = as.numeric("pval_nominal")) %>%
-        write.table("/tmp/pqtl.tsv", sep="\t", row.names=FALSE, quote=FALSE)
+      pqtl_data <- merged_data %>% select(rsid = ID, chr = as.integer("CHR"), pos = as.integer("POS"), pval = as.numeric("pval_nominal"))
+      write.table("/tmp/pqtl.tsv", sep="\t", row.names=FALSE, quote=FALSE)
       
-      gwas_data_formatted <- merged_data %>%
-        select(rsid = ID,
-               chr = as.integer("CHR"), 
-               pos = as.integer("POS"),
-               pval = as.numeric("Pvalue")) %>%
-        write.table("/tmp/gwas.tsv", sep="\t", row.names=FALSE, quote=FALSE)
+      gwas_data_formatted <- merged_data %>% select(rsid = ID, chr = as.integer("CHR"), pos = as.integer("POS"), pval = as.numeric("Pvalue"))
+      write.table("/tmp/gwas.tsv", sep="\t", row.names=FALSE, quote=FALSE)
       
       #get lead SNP (most probable colocalization SNP)
       lead_snp <- top_snps$SNP.PP.H4[which.max(top_snps$SNP.PP.H4)]
