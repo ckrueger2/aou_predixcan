@@ -99,17 +99,6 @@ for (phenotype in unique_phenotypes) {
         devtools::install_github("boxiangliu/locuscomparer")
       }
       library(locuscomparer)
-
-      #edit inf or NA values in the pvalue columns
-      #check for problematic p-values
-      cat("NA present:", any(is.na(merged_data$pval_nominal)), "\n")
-      cat("Inf present:", any(is.infinite(merged_data$pval_nominal)), "\n") 
-      cat("Zero present:", any(merged_data$pval_nominal == 0, na.rm = TRUE), "\n")
-      cat("NA present:", any(is.na(merged_data$Pvalue)), "\n")
-      cat("Inf present:", any(is.infinite(merged_data$Pvalue)), "\n")
-      cat("Zero present:", any(merged_data$Pvalue == 0, na.rm = TRUE), "\n")
-      #merged_data$pval_nominal[merged_data$pval_nominal == 0] <- 1e-300
-      #merged_data$Pvalue[merged_data$Pvalue == 0] <- 1e-300
       
       #prepare data for locuscomparer
       pqtl_data <- merged_data %>% 
