@@ -112,7 +112,7 @@ for (phenotype in unique_phenotypes) {
         select(rsid = ID,
                chr = CHR, 
                pos = POS,
-               pval = P) %>%
+               pval = Pvalue) %>%
         write.table("/tmp/gwas.tsv", sep="\t", row.names=FALSE, quote=FALSE)
       
       #get lead SNP (most probable colocalization SNP)
@@ -130,8 +130,8 @@ for (phenotype in unique_phenotypes) {
       png(plot_filename, width = 1200, height = 400)
       locuscompare(in_fn1 = "/tmp/gwas.tsv", 
                    in_fn2 = "/tmp/pqtl.tsv",
-                   title1 = paste("GWAS:", args$phecode),
-                   title2 = paste("pQTL:", phenotype),
+                   title1 = paste("Ischemic Heart Disease GWAS:", args$phecode),
+                   title2 = paste("MESA pQTLs:", phenotype),
                    ld = ld_data,
                    color_scheme = c("blue", "green", "orange", "red"))
       dev.off()
