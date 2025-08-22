@@ -128,17 +128,20 @@ for (phenotype in unique_phenotypes) {
       png(plot_filename, width = 1200, height = 400)
       
       #create plot
-      locuscompare(in_fn1 = "/tmp/gwas.tsv", 
-                   in_fn2 = "/tmp/pqtl.tsv",
-                   title1 = paste0("AoU Ischemic Heart Disease GWAS"),
-                   title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
-                   snp = lead_snp,
-                   population = "META",
-                   legend = TRUE,
-                   combine =TRUE,
-                   legend_position = "bottomright",
-                   genome = "hg38"
-                  )
+      #locuscompare(in_fn1 = "/tmp/gwas.tsv", 
+      #             in_fn2 = "/tmp/pqtl.tsv",
+      #             title1 = paste0("AoU Ischemic Heart Disease GWAS"),
+      #             title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
+      #             snp = lead_snp,
+      #             population = "META",
+      #             legend = TRUE,
+      #             combine =TRUE,
+      #             legend_position = "bottomright",
+      #             genome = "hg38"
+      #            )
+
+      locuscompare(in_fn1 = "/tmp/gwas.tsv", in_fn2 = "/tmp/pqtl.tsv")
+      
       dev.off()
   
       #add LD
