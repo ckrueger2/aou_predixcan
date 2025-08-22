@@ -3,38 +3,30 @@ if (!requireNamespace("data.table", quietly = TRUE)) install.packages("data.tabl
 if (!requireNamespace("dplyr", quietly = TRUE)) install.packages("dplyr")
 if (!requireNamespace("coloc", quietly = TRUE)) install.packages("coloc")
 if (!requireNamespace("argparse", quietly = TRUE)) install.packages("argparse")
-
 #load packages
 library(data.table)
 library(dplyr)
 library(coloc)
 library(argparse)
-
 #set up argparse
 parser <- ArgumentParser()
 parser$add_argument("--phecode", help="all of us phenotype ID")
 parser$add_argument("--pop", help="all of us population ID")
-
 args <- parser$parse_args()
-
 #find bucket
 my_bucket <- Sys.getenv('WORKSPACE_BUCKET')
-
 #read in MESA pQTL table
 name_of_pqtl_file <- paste0(args$pop, "_mesa_pqtls.txt")
 pqtl_command <- paste0("gsutil cp ", my_bucket, "/data/", name_of_pqtl_file, " .")
 system(pqtl_command, intern=TRUE)
 qtl_data <- fread(name_of_pqtl_file, header=TRUE)
-
 #read in AoU GWAS table
 name_of_gwas_file <- paste0(args$pop, "_formatted_mesa_", args$phecode, ".tsv")
 gwas_command <- paste0("gsutil cp ", my_bucket, "/data/", name_of_gwas_file, " .")
 system(gwas_command, intern=TRUE)
 gwas_data <- fread(name_of_gwas_file, header=TRUE)
-
 #extract unique phenotypes
 unique_phenotypes <- unique(qtl_data$phenotype_id)
-
 for (phenotype in unique_phenotypes) {
   cat("Processing phenotype:", phenotype, "\n")
   
@@ -65,9 +57,7 @@ for (phenotype in unique_phenotypes) {
         slice_min(pval_nominal, n = 1, with_ties = FALSE) %>%
         ungroup()
     }
-
     post_filter <-(nrow(merged_data))
-
     cat("Pre-filter SNP count: ", pre_filter, " Post-filter SNP count: ", post_filter, "\n")
     
     #prepare datasets
@@ -95,13 +85,15 @@ for (phenotype in unique_phenotypes) {
     #view summary
     cat("Results for", phenotype, ":\n")
     print(result$summary)
-    cat("\n")
-
+    
+    #show top SNPs if colocalization found
     if (result$summary["PP.H4.abf"] > 0.8) {
       cat("Colocalizing SNPs found:\n")
       top_snps <- result$results[order(-result$results$SNP.PP.H4), ]
       print(head(top_snps[, c("snp", "SNP.PP.H4")], 5))
     }
+    
+    cat("\n")
   } else {
     cat("No common variants found for", phenotype, "\n\n")
   }
