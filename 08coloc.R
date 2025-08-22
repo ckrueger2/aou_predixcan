@@ -87,14 +87,60 @@ for (phenotype in unique_phenotypes) {
     print(result$summary)
     
     #show top SNPs if colocalization found
+    #show top SNPs if colocalization found
     if (result$summary["PP.H4.abf"] > 0.8) {
       cat("Colocalizing SNPs found:\n")
       top_snps <- result$results[order(-result$results$SNP.PP.H4), ]
-      print(colnames(top_snps))
-      print(head(top_snps[, c("snp", "SNP.PP.H4")], 20))
+      print(head(top_snps[, c("snp", "SNP.PP.H4")], 10))
+      
+      #install locuscomparer if needed
+      if (!requireNamespace("locuscomparer", quietly = TRUE)) {
+        if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
+        devtools::install_github("boxiangliu/locuscomparer")
+      }
+      library(locuscomparer)
+      
+      #prepare data for locuscomparer
+      pqtl_data <- merged_data %>%
+        select(rsid = ID, 
+               chr = CHR,
+               pos = POS, 
+               pval = pval_nominal) %>%
+        write.table("/tmp/pqtl.tsv", sep="\t", row.names=FALSE, quote=FALSE)
+      
+      gwas_data_formatted <- merged_data %>%
+        select(rsid = ID,
+               chr = CHR, 
+               pos = POS,
+               pval = P) %>%
+        write.table("/tmp/gwas.tsv", sep="\t", row.names=FALSE, quote=FALSE)
+      
+      #get lead SNP (most probable colocalization SNP)
+      lead_snp <- top_snps$SNP.PP.H4[which.min(top_snps$SNP.PP.H4)]
+      
+      #retrieve LD information
+      ld_data <- retrieve_LD(chr = merged_data$CHR[1], 
+                             start = min(merged_data$POS), 
+                             end = max(merged_data$POS),
+                             lead_snp = lead_snp,
+                             population = "META")
+      
+      #create the three-panel plot
+      plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
+      png(plot_filename, width = 1200, height = 400)
+      locuscompare(in_fn1 = "/tmp/gwas.tsv", 
+                   in_fn2 = "/tmp/pqtl.tsv",
+                   title1 = paste("GWAS:", args$phecode),
+                   title2 = paste("pQTL:", phenotype),
+                   ld = ld_data,
+                   color_scheme = c("blue", "green", "orange", "red"))
+      dev.off()
+      
+      #clean up tmp files
+      file.remove("/tmp/pqtl.tsv", "/tmp/gwas.tsv")
+      
+      cat("Locuscompare plot saved as:", plot_filename, "\n")
     }
-    
-    cat("\n")
   } else {
     cat("No common variants found for", phenotype, "\n\n")
   }
