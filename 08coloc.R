@@ -103,14 +103,12 @@ for (phenotype in unique_phenotypes) {
       pqtl_data <- merged_data %>% 
         select(rsid = ID, chr = CHR, pos = POS, pval = pval_nominal) %>%
         mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
-      head(pqtl_data)
-      str(pqtl_data)
+      pqtl_data <- as.data.frame(pqtl_data)
       
       gwas_data_formatted <- merged_data %>% 
         select(rsid = ID, chr = CHR, pos = POS, pval = Pvalue) %>%
         mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
-      head(gwas_data_formatted)
-      str(gwas_data_formatted)
+      gwas_data_formatted <- as.data.frame(gwas_data_formatted)
       
       #get lead SNP (most probable colocalization SNP)
       lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
