@@ -99,6 +99,9 @@ for (phenotype in unique_phenotypes) {
         devtools::install_github("boxiangliu/locuscomparer")
       }
       library(locuscomparer)
+
+      cat("pQTL pval class:", class(merged_data$pval_nominal), "\n")
+      cat("GWAS pval class:", class(merged_data$Pvalue), "\n")
       
       #prepare data for locuscomparer
       pqtl_data <- merged_data %>% 
