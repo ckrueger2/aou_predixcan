@@ -87,7 +87,6 @@ for (phenotype in unique_phenotypes) {
     print(result$summary)
     
     #show top SNPs if colocalization found
-    #show top SNPs if colocalization found
     if (result$summary["PP.H4.abf"] > 0.8) {
       cat("Colocalizing SNPs found:\n")
       top_snps <- result$results[order(-result$results$SNP.PP.H4), ]
@@ -100,9 +99,6 @@ for (phenotype in unique_phenotypes) {
       }
       library(locuscomparer)
 
-      cat("pQTL pval class:", class(merged_data$pval_nominal), "\n")
-      cat("GWAS pval class:", class(merged_data$Pvalue), "\n")
-      
       #prepare data for locuscomparer
       pqtl_data <- merged_data %>% 
         select(rsid = ID, chr = CHR, pos = POS, pval = pval_nominal) %>%
@@ -138,10 +134,6 @@ for (phenotype in unique_phenotypes) {
                   )
       
       dev.off()
-  
-      #add LD
-      #make a one-time request for your personal access token from a web browser at https://ldlink.nih.gov/?tab=apiaccess.
-      #loc_ld <- link_LD(loc, token = "f6f66d8afc43")
       
       #clean up tmp files
       file.remove("/tmp/pqtl.tsv", "/tmp/gwas.tsv")
