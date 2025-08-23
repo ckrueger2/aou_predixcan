@@ -128,7 +128,7 @@ for (phenotype in unique_phenotypes) {
                    snp = lead_snp,
                    population = "META",
                    legend = TRUE,
-                   combine =TRUE,
+                   #combine =TRUE,
                    legend_position = "bottomright",
                    genome = "hg38"
                   )
