@@ -109,11 +109,18 @@ for (phenotype in unique_phenotypes) {
         select(rsid = ID, chr = CHR, pos = POS, pval = Pvalue) %>%
         mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
       gwas_data_formatted <- as.data.frame(gwas_data_formatted)
-      
+
       #get lead SNP (most probable colocalization SNP)
       lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
       print(lead_snp)
 
+      #troubleshooting
+      str(pqtl_data)
+      str(gwas_data_formatted)
+      head(pqtl_data)
+      head(gwas_data_formatted)
+      str(lead_snp)
+      
       #create the three-panel plot
       plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
       png(plot_filename, width = 1200, height = 400)
