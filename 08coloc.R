@@ -94,15 +94,6 @@ for (phenotype in unique_phenotypes) {
       top_snps <- result$results[order(-result$results$SNP.PP.H4), ]
       print(head(top_snps[, c("snp", "SNP.PP.H4")], 10))
 
-      plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
-      png(plot_filename, width = 1200, height = 400)
-
-      first_trait <- paste0("TOPMed MESA ", args$phecode, " cis-pQTL")
-      second_trait <- paste0("AoU", args$pop, "Ischemic Heart Disease GWAS")
-      plot(plot_extended_dataset(list(dataset1, dataset2), result, show_ld = T, ld_label = 'r2', first_trait = first_trait, second_trait = second_trait))
-      
-      dev.off()
-      
     # #install locuscomparer if needed
     # if (!requireNamespace("locuscomparer", quietly = TRUE)) {
     #   if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
