@@ -123,7 +123,7 @@ for (phenotype in unique_phenotypes) {
       print("Unique CHR:")
       print(unique(merged_data$CHR))
       #merged = merge(pqtl_data, gwas_data_formatted, by = "rsid", suffixes = c("1", "2"), all = FALSE)
-      merged = merge(pqtl_data, gwas_data_formatted, by = "rsid", all = FALSE)
+      merged = merge(pqtl_data, gwas_data_formatted, by = "rsid", suffixes = c("1", "2"), all = FALSE)
       cat("Merged dimensions:", nrow(merged), "x", ncol(merged), "\n")
       cat("Merged columns:", paste(colnames(merged), collapse = ", "), "\n")
       
