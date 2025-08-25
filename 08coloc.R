@@ -92,67 +92,63 @@ for (phenotype in unique_phenotypes) {
       top_snps <- result$results[order(-result$results$SNP.PP.H4), ]
       print(head(top_snps[, c("snp", "SNP.PP.H4")], 10))
       
-      #install locuscomparer if needed
-      if (!requireNamespace("locuscomparer", quietly = TRUE)) {
-        if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
-        devtools::install_github("boxiangliu/locuscomparer")
-      }
-      library(locuscomparer)
-
-      #prepare data for locuscomparer
-      pqtl_data <- merged_data %>% 
-        select(rsid = rsid, pval = pval_nominal) %>%
-        mutate(pval = as.numeric(pval))
-      pqtl_data <- as.data.frame(pqtl_data)
-      
-      gwas_data_formatted <- merged_data %>% 
-        select(rsid = rsid, pval = Pvalue) %>%
-        mutate(pval = as.numeric(pval))
-      gwas_data_formatted <- as.data.frame(gwas_data_formatted)
-
-      #get lead SNP (most probable colocalization SNP)
-      lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
-      lead_snp_rsid <- merged_data$rsid[merged_data$ID == lead_snp]
-      print(lead_snp)
-      print(lead_snp_rsid)
-
-      #troubleshooting
-      str(pqtl_data)
-      str(gwas_data_formatted)
-      head(pqtl_data)
-      head(gwas_data_formatted)
-      str(lead_snp_rsid)
-      print("Unique CHR:")
-      print(unique(merged_data$CHR))
-      merged = merge(pqtl_data, gwas_data_formatted, by = "rsid", suffixes = c("1", "2"), all = FALSE)
-      cat("Merged dimensions:", nrow(merged), "x", ncol(merged), "\n")
-      cat("Merged columns:", paste(colnames(merged), collapse = ", "), "\n")
-      str(merged)
-      
-      #create the three-panel plot
-      plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
-      png(plot_filename, width = 1200, height = 400)
-      
-      #create plot
-      locuscompare(in_fn1 = pqtl_data, 
-                   in_fn2 = gwas_data_formatted,
-                   title1 = paste0("AoU Ischemic Heart Disease GWAS"),
-                   title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
-                   snp = lead_snp_rsid,
-                   population = "META",
-                   legend = TRUE,
-                   #combine =TRUE,
-                   legend_position = "bottomright",
-                   genome = "hg38"
-                  )
-      
-      dev.off()
-      
-      #clean up tmp files
-      file.remove("/tmp/pqtl.tsv", "/tmp/gwas.tsv")
-      
-      cat("Locuscompare plot saved as:", plot_filename, "\n")
-    }
+    # #install locuscomparer if needed
+    # if (!requireNamespace("locuscomparer", quietly = TRUE)) {
+    #   if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
+    #   devtools::install_github("boxiangliu/locuscomparer")
+    # }
+    # library(locuscomparer)
+    # 
+    # #prepare data for locuscomparer
+    # pqtl_data <- merged_data %>% 
+    #   select(rsid = rsid, pval = pval_nominal) %>%
+    #   mutate(pval = as.numeric(pval))
+    # pqtl_data <- as.data.frame(pqtl_data)
+    # 
+    # gwas_data_formatted <- merged_data %>% 
+    #   select(rsid = rsid, pval = Pvalue) %>%
+    #   mutate(pval = as.numeric(pval))
+    # gwas_data_formatted <- as.data.frame(gwas_data_formatted)
+    # 
+    # #get lead SNP (most probable colocalization SNP)
+    # lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
+    # lead_snp_rsid <- merged_data$rsid[merged_data$ID == lead_snp]
+    # print(lead_snp)
+    # print(lead_snp_rsid)
+    # 
+    # #troubleshooting
+    # str(pqtl_data)
+    # str(gwas_data_formatted)
+    # head(pqtl_data)
+    # head(gwas_data_formatted)
+    # str(lead_snp_rsid)
+    # print("Unique CHR:")
+    # print(unique(merged_data$CHR))
+    # merged = merge(pqtl_data, gwas_data_formatted, by = "rsid", suffixes = c("1", "2"), all = FALSE)
+    # cat("Merged dimensions:", nrow(merged), "x", ncol(merged), "\n")
+    # cat("Merged columns:", paste(colnames(merged), collapse = ", "), "\n")
+    # str(merged)
+    # 
+    # #create the three-panel plot
+    # plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
+    # png(plot_filename, width = 1200, height = 400)
+    # 
+    # #create plot
+    # locuscompare(in_fn1 = pqtl_data, 
+    #              in_fn2 = gwas_data_formatted,
+    #              title1 = paste0("AoU Ischemic Heart Disease GWAS"),
+    #              title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
+    #              snp = lead_snp_rsid,
+    #              population = "META",
+    #              legend = TRUE,
+    #              #combine =TRUE,
+    #              legend_position = "bottomright",
+    #              genome = "hg38"
+    # )
+    # 
+    # dev.off()
+    # 
+    # cat("Locuscompare plot saved as:", plot_filename, "\n")}
   } else {
     cat("No common variants found for", phenotype, "\n\n")
   }
