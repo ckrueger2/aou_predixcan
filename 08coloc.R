@@ -101,17 +101,18 @@ for (phenotype in unique_phenotypes) {
 
       #prepare data for locuscomparer
       pqtl_data <- merged_data %>% 
-        select(rsid = rsid, chr = CHR, pos = POS, pval = pval_nominal) %>%
-        mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
+        select(rsid = rsid, pval = pval_nominal) %>%
+        mutate(pval = as.numeric(pval))
       pqtl_data <- as.data.frame(pqtl_data)
       
       gwas_data_formatted <- merged_data %>% 
-        select(rsid = rsid, chr = CHR, pos = POS, pval = Pvalue) %>%
-        mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
+        select(rsid = rsid, pval = Pvalue) %>%
+        mutate(pval = as.numeric(pval))
       gwas_data_formatted <- as.data.frame(gwas_data_formatted)
 
       #get lead SNP (most probable colocalization SNP)
       lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
+      lead_snp_rsid <- merged_data$rsid[merged_data$ID == lead_snp]
       print(lead_snp)
 
       #troubleshooting
