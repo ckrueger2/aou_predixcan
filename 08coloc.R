@@ -120,7 +120,7 @@ for (phenotype in unique_phenotypes) {
       head(pqtl_data)
       head(gwas_data_formatted)
       str(lead_snp)
-      print(unique(merged_data$chr))
+      print(unique(merged_data$CHR))
       
       #create the three-panel plot
       plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
