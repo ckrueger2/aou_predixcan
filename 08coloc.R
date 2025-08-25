@@ -114,6 +114,7 @@ for (phenotype in unique_phenotypes) {
       lead_snp <- top_snps$snp[which.max(top_snps$SNP.PP.H4)]
       lead_snp_rsid <- merged_data$rsid[merged_data$ID == lead_snp]
       print(lead_snp)
+      print(lead_snp_rsid)
 
       #troubleshooting
       str(pqtl_data)
@@ -149,7 +150,7 @@ for (phenotype in unique_phenotypes) {
                    in_fn2 = gwas_data_formatted,
                    title1 = paste0("AoU Ischemic Heart Disease GWAS"),
                    title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
-                   #snp = lead_snp,
+                   snp = lead_snp_rsid,
                    population = "META",
                    legend = TRUE,
                    #combine =TRUE,
