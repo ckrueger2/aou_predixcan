@@ -128,8 +128,6 @@ for (phenotype in unique_phenotypes) {
       cat("Merged dimensions:", nrow(merged), "x", ncol(merged), "\n")
       cat("Merged columns:", paste(colnames(merged), collapse = ", "), "\n")
       str(merged)
-      chr = unique(merged$chr)
-      print(length(chr))
       
       #create the three-panel plot
       plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
