@@ -148,7 +148,8 @@ for (phenotype in unique_phenotypes) {
     # 
     # dev.off()
     # 
-    # cat("Locuscompare plot saved as:", plot_filename, "\n")}
+    # cat("Locuscompare plot saved as:", plot_filename, "\n")
+    }
   } else {
     cat("No common variants found for", phenotype, "\n\n")
   }
