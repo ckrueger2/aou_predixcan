@@ -101,12 +101,12 @@ for (phenotype in unique_phenotypes) {
 
       #prepare data for locuscomparer
       pqtl_data <- merged_data %>% 
-        select(rsid = ID, chr = CHR, pos = POS, pval = pval_nominal) %>%
+        select(rsid = rsid, chr = CHR, pos = POS, pval = pval_nominal) %>%
         mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
       pqtl_data <- as.data.frame(pqtl_data)
       
       gwas_data_formatted <- merged_data %>% 
-        select(rsid = ID, chr = CHR, pos = POS, pval = Pvalue) %>%
+        select(rsid = rsid, chr = CHR, pos = POS, pval = Pvalue) %>%
         mutate(chr = as.integer(chr), pos = as.integer(pos), pval = as.numeric(pval))
       gwas_data_formatted <- as.data.frame(gwas_data_formatted)
 
