@@ -120,7 +120,7 @@ for (phenotype in unique_phenotypes) {
       
       #create plot
       locuscompare(in_fn1 = pqtl_data, 
-                   in_fn2 = gwas_data,
+                   in_fn2 = gwas_data_formatted,
                    title1 = paste0("AoU Ischemic Heart Disease GWAS"),
                    title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
                    snp = lead_snp,
