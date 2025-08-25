@@ -91,6 +91,15 @@ for (phenotype in unique_phenotypes) {
       cat("Colocalizing SNPs found:\n")
       top_snps <- result$results[order(-result$results$SNP.PP.H4), ]
       print(head(top_snps[, c("snp", "SNP.PP.H4")], 10))
+
+      plot_filename <- paste0(phenotype, "_", args$phecode, "_locuscompare.png")
+      png(plot_filename, width = 1200, height = 400)
+
+      first_trait <- paste0("TOPMed MESA ", args$phecode, " cis-pQTL")
+      second_trait <- paste0("AoU", args$pop, "Ischemic Heart Disease GWAS")
+      coloc.plot_extended_dataset(dataset1, dataset2, result, first_trait = first_trait, second_trait = second_trait)
+      
+      dev.off()
       
     # #install locuscomparer if needed
     # if (!requireNamespace("locuscomparer", quietly = TRUE)) {
