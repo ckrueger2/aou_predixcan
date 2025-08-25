@@ -124,6 +124,16 @@ for (phenotype in unique_phenotypes) {
       print(unique(merged_data$CHR))
       #merged = merge(pqtl_data, gwas_data_formatted, by = "rsid", suffixes = c("1", "2"), all = FALSE)
       merged = merge(pqtl_data, gwas_data_formatted, by = "rsid", all = FALSE)
+      cat("Merged dimensions:", nrow(merged), "x", ncol(merged), "\n")
+      cat("Merged columns:", paste(colnames(merged), collapse = ", "), "\n")
+      
+      if (nrow(merged) == 0) {
+        cat("Merge failed - no matching rsids\n")
+        cat("Sample pQTL rsids:", head(pqtl_data$rsid, 3), "\n")
+        cat("Sample GWAS rsids:", head(gwas_data_formatted$rsid, 3), "\n")
+      } else {
+        head(merged)
+      }
       cat("Merged\n")
       head(merged)
       chr = unique(merged$chr)
