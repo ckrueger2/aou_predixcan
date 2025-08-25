@@ -130,12 +130,12 @@ for (phenotype in unique_phenotypes) {
                    in_fn2 = gwas_data_formatted,
                    title1 = paste0("AoU Ischemic Heart Disease GWAS"),
                    title2 = paste0("TOPMed MESA ", phenotype, " cis pQTL"),
-                   snp = lead_snp,
+                   #snp = lead_snp,
                    population = "META",
                    legend = TRUE,
                    #combine =TRUE,
                    legend_position = "bottomright",
-                   genome = "hg19"
+                   genome = "hg38"
                   )
       
       dev.off()
