@@ -44,6 +44,8 @@ for (phenotype in unique_phenotypes) {
     #merge tables
     merged_data <- inner_join(gwas_coloc, qtl_coloc, by = c("ID" = "variant_id"))
     head(merged_data)
+    merged_filename <- paste0("~/", phenotype, "_", args$phecode, "_pqtl_gwas_overlap.txt")
+    write.table(merged_data, merged_filename, quote=FALSE, row.names=FALSE, sep="\t")
     
     pre_filter <- (nrow(merged_data))
     
