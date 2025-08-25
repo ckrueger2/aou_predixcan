@@ -97,7 +97,7 @@ for (phenotype in unique_phenotypes) {
 
       first_trait <- paste0("TOPMed MESA ", args$phecode, " cis-pQTL")
       second_trait <- paste0("AoU", args$pop, "Ischemic Heart Disease GWAS")
-      coloc.plot_extended_dataset(dataset1, dataset2, result, first_trait = first_trait, second_trait = second_trait)
+      plot_extended_dataset(dataset1, dataset2, result, first_trait = first_trait, second_trait = second_trait)
       
       dev.off()
       
