@@ -135,7 +135,7 @@ for (phenotype in unique_phenotypes) {
                    legend = TRUE,
                    #combine =TRUE,
                    legend_position = "bottomright",
-                   genome = "hg38"
+                   genome = "hg19"
                   )
       
       dev.off()
