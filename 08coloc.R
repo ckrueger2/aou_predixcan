@@ -123,6 +123,7 @@ for (phenotype in unique_phenotypes) {
       print("Unique CHR:")
       print(unique(merged_data$CHR))
       merged = merge(pqtl_data, gwas_data_formatted, by = "rsid", suffixes = c("1", "2"), all = FALSE)
+      cat("Merged\n")
       head(merged)
       chr = unique(merged$chr)
       print(length(chr))
