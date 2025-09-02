@@ -93,7 +93,7 @@ stop = 110397918
 
 #extract region
 ordered_ht_chr = ordered_ht.filter(ordered_ht.CHR == "chr1")
-extracted_region = ordered_ht_chr.filter(108309568 <= ordered_ht_chr.POS <= 110397918)
+extracted_region = ordered_ht_chr.filter((ordered_ht_chr.POS >= 108309568) & (ordered_ht_chr.POS <= 110397918))
 num_snps = extracted_region.count()
 print(f"Number of SNPs: {num_snps}")
 
