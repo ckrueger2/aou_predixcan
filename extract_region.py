@@ -93,9 +93,9 @@ stop = 110397918
 
 #extract region
 ordered_ht_chr = ordered_ht.filter(ordered_ht.CHR == 1)
-extracted_region = ordered_ht_chr.filter(108309567 < ordered_ht_chr.POS < 110397919)
+extracted_region = ordered_ht_chr.filter(108309568 <= ordered_ht_chr.POS <= 110397918)
 num_snps = extracted_region.count()
-print(f"Number of SNPs: {num_snps})
+print(f"Number of SNPs: {num_snps}")
 
 #save filtered file
 filtered_path = f'{bucket}/data/{pop}_cis_region_{phenotype_id}.tsv'
