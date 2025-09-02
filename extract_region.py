@@ -99,7 +99,7 @@ print(f"Number of SNPs: {num_snps}")
 
 #save filtered file
 filtered_path = f'{bucket}/data/{pop}_cis_region_{phenotype_id}.tsv'
-sig_snps_sorted.export(filtered_path)
+extracted_region.export(filtered_path)
 
 #CHECK IF FILES ARE SAVED TO BUCKET
 #full file
