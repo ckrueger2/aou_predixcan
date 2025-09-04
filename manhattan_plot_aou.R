@@ -28,6 +28,7 @@ add_ld <- function(df) {
     
     #extract r2 value
     rsq_line <- grep("R-sq", output, value = TRUE)
+    print(rsq_line)
     if(length(rsq_line) > 0) {
       rsq_value <- as.numeric(sub(".*R-sq = ([0-9.e+-]+).*", "\\1", rsq_line))
       df$ld[i] <- rsq_value
