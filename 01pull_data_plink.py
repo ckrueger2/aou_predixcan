@@ -24,7 +24,7 @@ out_path = f"{bucket}/data/plink"
 
 mt_wgs_path = os.getenv("WGS_EXOME_SPLIT_HAIL_PATH")
 mt_wgs_path
-mt_wgs_path = "${wgs_path}/v7/wgs/short_read/snpindel/exome/splitMT/hail.mt"
+mt_wgs_path = "${wgs_path}/v8/wgs/short_read/snpindel/exome/splitMT/hail.mt"
 mt = hl.read_matrix_table(mt_wgs_path)
 intervals = ['chr1:108309567-110397919']
 filt_mt = hl.filter_intervals(mt, [hl.parse_locus_interval(x, reference_genome='GRCh38') for x in intervals])
