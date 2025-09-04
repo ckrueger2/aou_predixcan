@@ -23,7 +23,8 @@ add_ld <- function(df) {
   
   for(i in 1:nrow(df)) {
     #plink command
-    cmd <- paste("plink --bfile ~/plink --ld chr1:109274968:G:T", df$ID[i], "--noweb")
+    cmd <- paste("plink --bfile ~/plink --ld chr1:109274968:G:T", df$ID[i])
+    print(cmd)
     output <- system(cmd, intern = TRUE, ignore.stderr = TRUE)
     
     #extract r2 value
