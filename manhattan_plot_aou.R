@@ -3,7 +3,7 @@ library(data.table)
 library(ggplot2)
 library(tidyr)
 
-filtered_table <- fread("~/META_cis_region_CV_404_SORT1.tsv", header=TRUE)
+filtered_table <- fread("~/META_cis_region_CV_404.tsv", header=TRUE)
 
 filtered_table$alleles_formatted <- gsub('\\["', "", filtered_table$alleles)
 filtered_table$alleles_formatted <- gsub('"\\]', "", filtered_table$alleles_formatted) 
